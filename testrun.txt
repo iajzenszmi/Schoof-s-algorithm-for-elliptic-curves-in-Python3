@@ -1,0 +1,71 @@
+ian@ian-Latitude-E7440:~$ nano schoofa.py
+ian@ian-Latitude-E7440:~$ python3 schoofa.py
+P + Q = (86, 93)
+ian@ian-Latitude-E7440:~$ cat schoofa.py
+class EllipticCurve:
+    def __init__(self, a, b, p):
+        self.a = a
+        self.b = b
+        self.p = p
+
+    def add_points(self, P, Q):
+        if P == (0, 0):
+            return Q
+        if Q == (0, 0):
+            return P
+
+        x1, y1 = P
+        x2, y2 = Q
+
+        if P != Q:
+            slope = (y2 - y1) * pow(x2 - x1, -1, self.p) % self.p
+        else:
+            slope = (3 * x1 * x1 + self.a) * pow(2 * y1, -1, self.p) % self.p
+
+        x3 = (slope * slope - x1 - x2) % self.p
+        y3 = (slope * (x1 - x3) - y1) % self.p
+
+        return (x3, y3)
+
+# Example usage
+curve = EllipticCurve(a=2, b=3, p=97)  # Example curve parameters
+P = (3, 6)
+Q = (10, 7)
+
+R = curve.add_points(P, Q)
+print(f"P + Q = {R}")
+ian@ian-Latitude-E7440:~$ sloccount schoofa.py
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/ian/schoofa.py to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+24      top_dir         python=24
+
+
+Totals grouped by language (dominant language first):
+python:          24 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 24
+Development Effort Estimate, Person-Years (Person-Months) = 0.00 (0.05)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.07 (0.79)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.06
+Total Estimated Cost to Develop                           = $ 538
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+ian@ian-Latitude-E7440:~$ 
+
